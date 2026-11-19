@@ -24,6 +24,9 @@ export default class Order {
   get items(): OrderItem[] {
     return this._items;
   }
+  editCustomer(id: string) {
+    this._customerId = id;
+  }
 
   validate(): boolean {
     if (this._id.length === 0) {
