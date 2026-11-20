@@ -46,6 +46,15 @@ export default class Order {
     return true;
   }
 
+  alterOrdemItemQuantity(id: string, quantity: number) {
+    const response = this._items.find((item) => item.id == id);
+    if (response) {
+      response.alterQuantity(quantity);
+    }
+
+    this.validate();
+  }
+
   total(): number {
     return this._items.reduce((acc, item) => acc + item.total(), 0);
   }

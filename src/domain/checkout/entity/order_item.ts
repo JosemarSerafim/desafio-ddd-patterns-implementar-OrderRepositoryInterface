@@ -11,7 +11,7 @@ export default class OrderItem {
     name: string,
     price: number,
     productId: string,
-    quantity: number
+    quantity: number,
   ) {
     this._id = id;
     this._name = name;
@@ -41,7 +41,11 @@ export default class OrderItem {
     return this._price;
   }
 
+  alterQuantity(quantity: number) {
+    this._quantity = quantity;
+  }
+
   total(): number {
-    return this._price * this._quantity
+    return this._price * this._quantity;
   }
 }

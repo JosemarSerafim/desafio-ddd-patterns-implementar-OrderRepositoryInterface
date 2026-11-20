@@ -35,7 +35,6 @@ export default class OrderRepository implements OrderRepositoryInterface {
 
         rejectOnEmpty: true,
         include: [{ model: OrderItemModel }],
-        
       });
     } catch (error) {
       throw new Error("Order not found");
@@ -59,7 +58,9 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async findAll(): Promise<Order[]> {
-    const orderModels = await OrderModel.findAll({});
+    const orderModels = await OrderModel.findAll({
+      include: [{ model: OrderItemModel }],
+    });
 
     const order = orderModels.map((orderModel) => {
       let orders = new Order(
@@ -83,16 +84,30 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async update(entity: Order): Promise<void> {
+    await Promise.all(
+      entity.items.map(async (item) => {
+
+        const t = await OrderItemModel.update(
+          {
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            productId: item.productId,
+          },
+          {
+            where: { id: item.id },
+          },
+        );
+      }),
+    );
+
     await OrderModel.update(
       {
         customer_id: entity.customerId,
-        total: entity.total,
-        items: entity.items,
+        total: entity.total(),
       },
       {
-        where: {
-          id: entity.id,
-        },
+        where: { id: entity.id },
       },
     );
   }
