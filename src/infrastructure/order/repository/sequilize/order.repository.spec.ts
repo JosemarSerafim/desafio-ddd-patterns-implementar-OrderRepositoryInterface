@@ -152,7 +152,11 @@ describe("Order repository test", () => {
     expect(order).toStrictEqual(orderResult);
   });
 
+<<<<<<< HEAD
   it("should findAll orders", async () => {
+=======
+ it("should findAll orders", async () => {
+>>>>>>> e8fff4402a09806a64052449a367b59c403ad6ae
     const customerRepository = new CustomerRepository();
     const customer = new Customer("123", "Customer 1");
     const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
@@ -160,6 +164,10 @@ describe("Order repository test", () => {
 
     await customerRepository.create(customer);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e8fff4402a09806a64052449a367b59c403ad6ae
     const productRepository = new ProductRepository();
     const product = new Product("123", "Product 1", 10);
     await productRepository.create(product);
@@ -177,8 +185,16 @@ describe("Order repository test", () => {
     await orderRepository.create(order);
 
     const orderResult = await orderRepository.findAll();
+<<<<<<< HEAD
 
     expect(Array.isArray(orderResult)).toBe(true);
     expect(orderResult).toStrictEqual([order]);
   });
+=======
+    
+    expect(Array.isArray(orderResult)).toBe(true)
+    expect(orderResult).toStrictEqual([order]);
+  });
+
+>>>>>>> e8fff4402a09806a64052449a367b59c403ad6ae
 });
